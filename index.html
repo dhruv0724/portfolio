@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhruv Verma - UI/UX Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00aaff; /* Vibrant Blue */
+            --secondary-color: #1a1a2e; /* Dark Blue-Gray */
+            --bg-color: #161625; /* Deep Navy */
+            --text-color: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --header-bg: rgba(22, 22, 37, 0.8);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            transition: top 0.3s;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 60px; /* Header height */
+            background: linear-gradient(135deg, #1a1a2e, #161625, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-content {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .job-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            margin: 0 0.75rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+        }
+
+        /* Experience & Projects */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--card-border);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item.right::after { left: -10px; }
+
+        .timeline-content {
+            padding: 25px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            position: relative;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+        }
+
+        .timeline-content h3 { color: var(--primary-color); }
+        .timeline-content h4 { color: var(--text-secondary); font-weight: 400; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .timeline-content p { font-size: 0.95rem; }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        .skill-category {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            border: 1px solid var(--card-border);
+        }
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: var(--secondary-color);
+            padding: 0.75rem;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .skill-item:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            transform: scale(1.05);
+        }
+
+        /* Education & Certs */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Contact */
+        .contact-info {
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero .job-title { font-size: 1.5rem; }
+            nav ul { display: none; } /* Simple responsive nav */
+
+            .timeline::after { left: 20px; }
+            .timeline-item { width: 100%; padding-left: 60px; padding-right: 15px; }
+            .timeline-item.left::after, .timeline-item.right::after { left: 10px; }
+            .timeline-item.right { left: 0%; }
+        }
+    </style>
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">DV</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>DHRUV VERMA</h1>
+                <p class="job-title">UI/UX Developer</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/dhruv0724" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/your-github" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a> <!-- Add your GitHub link -->
+                    <a href="http://DHRUV0724.COM" target="_blank" aria-label="Portfolio"><i class="fas fa-globe"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <h2 class="section-title">About Me</h2>
+            <p style="text-align: center; max-width: 800px; margin: auto;">
+                With a decade of experience as a UI/UX Developer, I specialize in architecting and building elegant, user-centric digital experiences. My passion lies in bridging the gap between complex technical requirements and intuitive, accessible design. I thrive in collaborative environments, leading front-end development and transforming visions into high-performance web applications that delight users and drive business goals.
+            </p>
+        </section>
+
+        <section id="experience">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <div class="timeline">
+                    <!-- Experience Items will be added here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <div class="timeline">
+                    <!-- Project Items will be added here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="container">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-container">
+                <!-- Skill categories will be added here by JS -->
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="container">
+                <h2 class="section-title">Education & Certifications</h2>
+                <div class="grid-layout">
+                    <!-- Education items will be added here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> <a href="tel:9680808055">9680808055</a></p>
+                    <p><i class="fas fa-globe"></i> <a href="mailto:dhruv0724@gmail.com" target="_blank">DHRUV0724.COM</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Your resume data
+        const resume = {
+            experience: [
+                {
+                    title: "Software Engineer",
+                    company: "Maplelms Edutech Private Limited",
+                    period: "10/2024 - Present",
+                    location: "Noida, India",
+                    description: "Developing and maintaining front-end features for LMS platforms. Customizing UI components and workflows. Building responsive, accessible, and user-centric interfaces."
+                },
+                {
+                    title: "Software Engineer",
+                    company: "Vinove Software & Services Pvt Ltd",
+                    period: "04/2021 - 09/2024",
+                    location: "Gurugram, India",
+                    description: "Built intuitive UIs with Angular, React, and Vue.js. Designed responsive web apps using HTML5, integrated APIs, and developed site functionality."
+                }
+            ],
+            projects: [
+                {
+                    title: "LMS Platform Development",
+                    company: "Current Role",
+                    period: "10/2024 - Present",
+                    description: "UI Developer focused on customizing and enhancing LMS platforms using PHP, Moodle, JavaScript, and jQuery."
+                },
+                {
+                    title: "KIA",
+                    company: "Project",
+                    period: "",
+                    description: "A B2B dealership platform. Designed UI/UX using Figma; implemented front end with React, Redux, and Material UI; integrated APIs."
+                },
+                {
+                    title: "Bharti Airtel",
+                    company: "Project",
+                    period: "",
+                    description: "Assessment system for Bharti Airtel. Designed and built responsive assessment platform using Figma, Next.js, and Material UI."
+                },
+                 {
+                    title: "Get vantage",
+                    company: "Project",
+                    period: "",
+                    description: "Investment platform. Created UI/UX in Figma and implemented front end with Angular and Material UI."
+                },
+                {
+                    title: "Cosmic Byte",
+                    company: "Project",
+                    period: "",
+                    description: "E-commerce platform. Developed responsive WordPress front end with CSS/media queries; built custom email templates."
+                },
+                {
+                    title: "Cadena",
+                    company: "Project",
+                    period: "",
+                    description: "Cadena is a B2B platform for professionals to interact with other company employees. For this project, I created the design from scratch, and I worked on React with material UI to make the platform responsive and convenient for users.",
+                    url: "https://cadena.dev.vinove.com/login"
+                }
+            ],
+            skills: {
+                "Frontend": ["React", "Angular", "Vue.js", "Next.js", "JavaScript", "HTML5", "CSS3", "SCSS"],
+                "UI Frameworks": ["Material UI", "Bootstrap", "Responsive Design"],
+                "State Management": ["Redux"],
+                "Backend & Tools": ["PHP", "Moodle", "APIs", "Git", "GitHub"],
+                "Design": ["Figma", "Adobe Photoshop", "Adobe illustrator","canva","UI/UX Principles"]
+            },
+            education: [
+                {
+                    title: "Master's in Computer Application",
+                    school: "Chandigarh University",
+                    period: "09/2019 - 03/2021",
+                    description: "A solid foundation in advanced software development, programming paradigms, and web/mobile application architecture."
+                },
+                {
+                    title: "Bachelor's in Computer Application",
+                    school: "S S Jain Subodh P G College",
+                    period: "09/2016 - 05/2019",
+                    description: "Strong background in core computer science principles, software development lifecycle, and database management."
+                }
+            ],
+        };
+
+        // Functions to populate sections
+        function populateTimeline(selector, items) {
+            const timeline = document.querySelector(selector);
+            items.forEach((item, index) => {
+                const side = index % 2 === 0 ? 'left' : 'right';
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item ${side}`;
+                timelineItem.innerHTML = `
+                    <div class="timeline-content">
+                        <h3>${item.title}</h3>
+                        <h4>${item.company}${item.period ? ` | ${item.period}` : ''}</h4>
+                        <p>${item.description}</p>
+                        ${item.url ? `<p><a href="${item.url}" target="_blank" style="color: var(--primary-color); text-decoration: none;">Live Demo <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a></p>` : ''}
+                    </div>
+                `;
+                timeline.appendChild(timelineItem);
+            });
+        }
+
+        function populateSkills(selector, skills) {
+            const container = document.querySelector(selector);
+            for (const category in skills) {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'skill-category';
+                
+                let skillsHTML = '<div class="skills-grid">';
+                skills[category].forEach(skill => {
+                    skillsHTML += `<div class="skill-item">${skill}</div>`;
+                });
+                skillsHTML += '</div>';
+
+                categoryDiv.innerHTML = `<h3>${category}</h3>${skillsHTML}`;
+                container.appendChild(categoryDiv);
+            }
+        }
+
+        function populateEducation(selector, items) {
+            const container = document.querySelector(selector);
+            items.forEach(item => {
+                const eduItem = document.createElement('div');
+                eduItem.className = 'timeline-content';
+                eduItem.innerHTML = `
+                    <h3>${item.title}</h3>
+                    <h4>${item.school} | ${item.period}</h4>
+                    <p>${item.description}</p>
+                `;
+                container.appendChild(eduItem);
+            });
+        }
+
+        // Populate the page
+        document.addEventListener('DOMContentLoaded', () => {
+            populateTimeline('#experience .timeline', resume.experience);
+            populateTimeline('#projects .timeline', resume.projects);
+            populateSkills('.skills-container', resume.skills);
+            populateEducation('#education .grid-layout', resume.education);
+
+            // Intersection Observer for scroll animations
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
