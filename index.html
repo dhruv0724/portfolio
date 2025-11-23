@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <style>
         :root {
             --primary-color: #00aaff; /* Vibrant Blue */
@@ -19,6 +20,7 @@
             --card-bg: rgba(255, 255, 255, 0.05);
             --card-border: rgba(255, 255, 255, 0.1);
             --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --z-background: -1;
         }
 
         * {
@@ -32,8 +34,65 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            overflow-x: hidden;
+            /* overflow-x: hidden; */ /* Disabled for particle effect */
         }
+        
+        /* Hide default cursor on interactive elements */
+        body, a, button, .skill-item {
+            cursor: none;
+        }
+
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: var(--bg-color);
+            padding: 8px;
+            z-index: 1100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: var(--bg-color);
+            z-index: var(--z-background);
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 11000;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, border-width 0.3s ease;
+        }
+
+        .custom-cursor.hover {
+            width: 50px;
+            height: 50px;
+            border-width: 1px;
+        }
+
+        .custom-cursor.clicked {
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+
 
         .container {
             max-width: 1100px;
@@ -77,13 +136,49 @@
 
         nav a {
             text-decoration: none;
-            color: var(--text-secondary);
+            position: relative;
+            color: var(--text-color); /* Brighter for better visibility */
             font-weight: 500;
-            transition: color 0.3s;
+            padding-bottom: 5px;
+            transition: color 0.3s, transform 0.1s ease-out;
         }
 
         nav a:hover {
             color: var(--primary-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Click/Active effect for all links */
+        a:active {
+            transform: scale(0.95);
+            opacity: 0.8;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
         }
 
         /* Hero Section */
@@ -94,17 +189,6 @@
             justify-content: center;
             text-align: center;
             padding-top: 60px; /* Header height */
-            background: linear-gradient(135deg, #1a1a2e, #161625, #1a1a2e);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .hero-content {
@@ -285,6 +369,28 @@
         .contact-info a {
             color: var(--primary-color);
             text-decoration: none;
+            position: relative;
+            padding-bottom: 5px;
+            display: inline-block; /* Needed for transform */
+            transition: transform 0.1s ease-out;
+        }
+
+        .contact-info a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .contact-info a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
         }
 
         /* Animations */
@@ -297,20 +403,50 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .hero .job-title { font-size: 1.5rem; }
-            nav ul { display: none; } /* Simple responsive nav */
+            
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 70%;
+                height: 100vh;
+                background: var(--secondary-color);
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            nav.active {
+                transform: translateX(0);
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding-top: 5rem;
+                align-items: center;
+            }
+            nav ul li {
+                margin: 1.5rem 0;
+            }
 
             .timeline::after { left: 20px; }
             .timeline-item { width: 100%; padding-left: 60px; padding-right: 15px; }
             .timeline-item.left::after, .timeline-item.right::after { left: 10px; }
-            .timeline-item.right { left: 0%; }
+            .timeline-item.left, .timeline-item.right { left: 0%; }
         }
     </style>
 </head>
 <body>
+    <div id="particles-js"></div>
+    <div class="custom-cursor"></div>
+    <a href="#main-content" class="skip-link">Skip to Main Content</a>
     <header id="main-header">
         <div class="container">
             <div class="logo">DV</div>
-            <nav>
+            <nav id="main-nav">
                 <ul>
                     <li><a href="#about">About</a></li>
                     <li><a href="#experience">Experience</a></li>
@@ -320,18 +456,19 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-nav">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <main>
+    <main id="main-content">
         <section class="hero">
             <div class="hero-content">
                 <h1>DHRUV VERMA</h1>
                 <p class="job-title">UI/UX Developer</p>
                 <div class="social-links">
-                    <a href="www.linkedin.com/in/dhruv0724" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <!-- <a href="https://github.com/your-github" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a> -->
-                    <!-- <a href="http://DHRUV0724.COM" target="_blank" aria-label="Portfolio"><i class="fas fa-globe"></i></a> -->
+                    <a href="https://www.linkedin.com/in/dhruv0724" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
         </section>
@@ -339,7 +476,7 @@
         <section id="about" class="container">
             <h2 class="section-title">About Me</h2>
             <p style="text-align: center; max-width: 800px; margin: auto;">
-                With a decade of experience as a UI/UX Developer, I specialize in architecting and building elegant, user-centric digital experiences. My passion lies in bridging the gap between complex technical requirements and intuitive, accessible design. I thrive in collaborative environments, leading front-end development and transforming visions into high-performance web applications that delight users and drive business goals.
+                UI/UX Developer with over 5 years of experience, specializing in building responsive and user-centric web applications. My expertise includes front-end technologies such as React.js, Angular, and Vue.js, and I actively contribute to Learning Management Systems using PHP, JavaScript, and Moodle. I excel at transforming complex requirements into intuitive designs and work collaboratively to deliver high-quality digital solutions.
             </p>
         </section>
 
@@ -382,11 +519,13 @@
                 <h2 class="section-title">Get In Touch</h2>
                 <div class="contact-info">
                     <p><i class="fas fa-phone"></i> <a href="tel:9680808055">9680808055</a></p>
-                    <p><i class="fas fa-globe"></i> <a href="mailto:dhruv0724@gmail.com" target="_blank">DHRUV0724.COM</a></p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:dhruv0724@gmail.com">dhruv0724@gmail.com</a></p>
                 </div>
             </div>
         </section>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
         // Your resume data
@@ -482,11 +621,11 @@
                 timelineItem.className = `timeline-item ${side}`;
                 timelineItem.innerHTML = `
                     <div class="timeline-content">
-                        ${item.logourl ? `<img src="${item.logourl}">` : ''}
+                        ${item.logourl ? `<img src="${item.logourl}" alt="${item.company} logo">` : ''}
                         <h3>${item.title}</h3>
                         <h4>${item.company}${item.period ? ` | ${item.period}` : ''}</h4>
                         <p>${item.description}</p>
-                        ${item.url ? `<p><a href="${item.url}" target="_blank" style="color: var(--primary-color); text-decoration: none;">Live Project <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a></p>` : ''}
+                        ${item.url ? `<p><a class="project-link" href="${item.url}" target="_blank" rel="noopener noreferrer">Live Project <span class="sr-only">(opens in a new tab)</span><i class="fas fa-external-link-alt" style="font-size: 0.8em;" aria-hidden="true"></i></a></p>` : ''}
                     </div>
                 `;
                 timeline.appendChild(timelineItem);
@@ -543,6 +682,144 @@
 
             sections.forEach(section => {
                 observer.observe(section);
+            });
+
+            // Mobile Navigation Toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const nav = document.getElementById('main-nav');
+            const navLinks = nav.querySelectorAll('a');
+
+            const toggleMenu = () => {
+                const isActive = nav.classList.toggle('active');
+                menuToggle.setAttribute('aria-expanded', isActive);
+                menuToggle.setAttribute('aria-label', isActive ? 'Close navigation menu' : 'Open navigation menu');
+                
+                const icon = menuToggle.querySelector('i');
+                icon.className = isActive ? 'fas fa-times' : 'fas fa-bars';
+            };
+
+            menuToggle.addEventListener('click', toggleMenu);
+
+            // Close menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (nav.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // Custom Cursor Logic
+            const cursor = document.querySelector('.custom-cursor');
+            
+            window.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            const interactiveElements = document.querySelectorAll('a, button, .skill-item');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hover');
+                });
+            });
+
+            document.addEventListener('mousedown', () => {
+                cursor.classList.add('clicked');
+            });
+
+            document.addEventListener('mouseup', () => {
+                cursor.classList.remove('clicked');
+            });
+
+            // Hide cursor if it leaves the window
+            document.addEventListener('mouseleave', () => {
+                cursor.style.display = 'none';
+            });
+            document.addEventListener('mouseenter', () => {
+                cursor.style.display = 'block';
+            });
+
+            // Particles.js Configuration
+            particlesJS('particles-js', {
+                "particles": {
+                  "number": {
+                    "value": 250,
+                    "density": {
+                      "enable": true,
+                      "value_area": 800
+                    }
+                  },
+                  "color": {
+                    "value": "#ffffff"
+                  },
+                  "shape": {
+                    "type": "circle"
+                  },
+                  "opacity": {
+                    "value": 0.8,
+                    "random": true,
+                    "anim": {
+                      "enable": true,
+                      "speed": 1,
+                      "opacity_min": 0.1,
+                      "sync": false
+                    }
+                  },
+                  "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                      "enable": false
+                    }
+                  },
+                  "line_linked": {
+                    "enable": false
+                  },
+                  "move": {
+                    "enable": true,
+                    "speed": 0.5,
+                    "direction": "bottom",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                  }
+                },
+                "interactivity": {
+                  "detect_on": "canvas",
+                  "events": {
+                    "onhover": {
+                      "enable": true,
+                      "mode": ["repulse", "bubble"]
+                    },
+                    "onclick": {
+                      "enable": true,
+                      "mode": "push"
+                    },
+                    "resize": true
+                  },
+                  "modes": {
+                    "bubble": {
+                      "distance": 200,
+                      "size": 4,
+                      "duration": 2,
+                      "opacity": 8,
+                      "speed": 3
+                    },
+                    "repulse": {
+                      "distance": 150,
+                      "duration": 0.4
+                    },
+                    "push": {
+                      "particles_nb": 4
+                    }
+                  }
+                },
+                "retina_detect": true
             });
         });
     </script>
