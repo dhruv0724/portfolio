@@ -426,7 +426,8 @@
                     title: "Bharti Airtel",
                     company: "Project",
                     period: "",
-                    description: "Assessment system for Bharti Airtel. Designed and built responsive assessment platform using Figma, Next.js, and Material UI."
+                    description: "Assessment system for Bharti Airtel. Designed and built responsive assessment platform using Figma, Next.js, and Material UI.",
+                    url:"https://www.theteacherapp.org/"
                 },
                  {
                     title: "Get vantage",
@@ -438,7 +439,8 @@
                     title: "Cosmic Byte",
                     company: "Project",
                     period: "",
-                    description: "E-commerce platform. Developed responsive WordPress front end with CSS/media queries; built custom email templates."
+                    description: "E-commerce platform. Developed responsive WordPress front end with CSS/media queries; built custom email templates.",
+                    url:"https://www.thecosmicbyte.com"
                 },
                 {
                     title: "Cadena",
@@ -480,11 +482,11 @@
                 timelineItem.className = `timeline-item ${side}`;
                 timelineItem.innerHTML = `
                     <div class="timeline-content">
-                        <img src="${item.logourl}">
+                        ${item.logourl ? `<img src="${item.logourl}">` : ''}
                         <h3>${item.title}</h3>
                         <h4>${item.company}${item.period ? ` | ${item.period}` : ''}</h4>
                         <p>${item.description}</p>
-                        ${item.url ? `<p><a href="${item.url}" target="_blank" style="color: var(--primary-color); text-decoration: none;">Live Demo <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a></p>` : ''}
+                        ${item.url ? `<p><a href="${item.url}" target="_blank" style="color: var(--primary-color); text-decoration: none;">Live Project <i class="fas fa-external-link-alt" style="font-size: 0.8em;"></i></a></p>` : ''}
                     </div>
                 `;
                 timeline.appendChild(timelineItem);
