@@ -227,6 +227,7 @@
         .timeline-content h3 { color: var(--primary-color); }
         .timeline-content h4 { color: var(--text-secondary); font-weight: 400; font-size: 0.9rem; margin-bottom: 0.5rem; }
         .timeline-content p { font-size: 0.95rem; }
+        .timeline-content img { width: 100%;height: auto;}
 
         /* Skills */
         .skills-container {
@@ -328,9 +329,9 @@
                 <h1>DHRUV VERMA</h1>
                 <p class="job-title">UI/UX Developer</p>
                 <div class="social-links">
-                    <a href="https://www.linkedin.com/in/dhruv0724" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://github.com/your-github" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a> <!-- Add your GitHub link -->
-                    <a href="http://DHRUV0724.COM" target="_blank" aria-label="Portfolio"><i class="fas fa-globe"></i></a>
+                    <a href="www.linkedin.com/in/dhruv0724" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <!-- <a href="https://github.com/your-github" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a> -->
+                    <!-- <a href="http://DHRUV0724.COM" target="_blank" aria-label="Portfolio"><i class="fas fa-globe"></i></a> -->
                 </div>
             </div>
         </section>
@@ -392,6 +393,7 @@
         const resume = {
             experience: [
                 {
+                    logourl:"https://www.maplelms.com/wp-content/uploads/2020/01/Footer-Logo_22Jan2021.png",
                     title: "Software Engineer",
                     company: "Maplelms Edutech Private Limited",
                     period: "10/2024 - Present",
@@ -399,6 +401,7 @@
                     description: "Developing and maintaining front-end features for LMS platforms. Customizing UI components and workflows. Building responsive, accessible, and user-centric interfaces."
                 },
                 {
+                    logourl:"https://www.vinove.com/wp-content/themes/vinove/dev-img/vinove-logo.svg",
                     title: "Software Engineer",
                     company: "Vinove Software & Services Pvt Ltd",
                     period: "04/2021 - 09/2024",
@@ -477,6 +480,7 @@
                 timelineItem.className = `timeline-item ${side}`;
                 timelineItem.innerHTML = `
                     <div class="timeline-content">
+                        <img src="${item.logourl}">
                         <h3>${item.title}</h3>
                         <h4>${item.company}${item.period ? ` | ${item.period}` : ''}</h4>
                         <p>${item.description}</p>
